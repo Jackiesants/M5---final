@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Table from 'react-bootstrap/Table';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./Visualizar.css";
@@ -12,66 +12,86 @@ import VisualizarFuncionario from './VisualizarFuncionario.jsx'
 import VisualizarVenda from './VisualizarVenda.jsx'
 
 
+function Visualizar() {
 
+  const [selecao, setselecao] = useState();
+  const [elementos, setElemento] = useState([])
+  const [busca, setBusca] = useState("")
 
-class Visualizar extends React.Component{
-
-    constructor(){
-        super();
-            this.state= {item: ""}
+  
+  useEffect(()=>{
+    const fetchR = async () => {
+  
+      const url =  `http://api-farmacia-m4.herokuapp.com/${selecao}/${busca}`
+      const resposta = await fetch(url)
+      const data = await resposta.json()
+     // setElemento(data.products);
+     if (!data.result.length){
+      setElemento([elementos, data.result]);
+     }
+     else {
+      setElemento([elementos, ...data.result]);
+     }
+     console.log("valor busca" + data.result.length)
+   
     }
+    fetchR();
+    
+    console.log("elementos:"+ elementos)
+    console.log(selecao)
+   
 
-    MudaItem = e => {
-      this.setState({item: e.target.value});
-    }
+  }, [selecao, busca])    
+ 
+  
 
-    render (){
-        return (
-          
+  return (
+    <Container className="container">
+            <div className="title_div_visualizar">
+               Visualização de Dados:
+            </div>
+           <div className="innerContainer"> 
+              <Row>
+                      <Col className="coluna">  
+                      <Card style={{ width: '18rem' }}>
+                <Card.Body>
+                  <Card.Title>Exibição: </Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">Escolha qual tabela de dados quer visualizar:</Card.Subtitle>
 
-          <Container className="container">
-          <div className="title_div_visualizar">
-Visualização de Dados:
-        </div>
-        <div className="innerContainer"> 
-                    <Row>
-            <Col className="coluna">  
-            <Card style={{ width: '18rem' }}>
-      <Card.Body>
-        <Card.Title>Exibição: </Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">Escolha quais dados quer visualizar:</Card.Subtitle>
-        <Card.Text>
-            <select value={this.state.item} onChange={this.MudaItem}>
-                <option> Selecionar Tabela </option>
-                <option value="Clientes"> Clientes </option>
-                <option value="Funcionarios"> Funcionários </option>
-                <option value="Remedios"> Remedios </option>
-                <option value="Vendas"> Vendas </option>
+                  <Card.Text>
+                      <select value={selecao} onChange={(e) => setselecao(e.target.value)}>
+                          <option> Selecionar Tabela </option>
+                          <option value="Clientes"> Clientes </option>
+                          <option value="Funcionarios"> Funcionários </option>
+                          <option value="Remedios"> Remedios </option>
+                          <option value="Vendas"> Vendas </option>
 
-            </select>
-        </Card.Text>
-      
-      </Card.Body>
-    </Card>
-            
-            
-             </Col>
-            <Col xs={8}> 
-              {this.state.item == 'Clientes' && <VisualizarCliente/> /*Renderização condicional*/} 
-              {this.state.item == 'Remedios' && <VisualizarRemedio/>}
-              {this.state.item == 'Funcionarios' && <VisualizarFuncionario/>}
-              {this.state.item == 'Vendas' && <VisualizarVenda/>}
+                      </select>
+                  </Card.Text>
+                  <Card.Text>
+                    <form>
+                      <label>Procure através do ID: </label>
 
-          </Col>
-          </Row>
-          </div>
-        </Container>
+                    <input type="text" name="name" disabled={selecao ? false : true} value={busca} onChange={(e) => setBusca(e.target.value)} />
+                    </form>
+                  </Card.Text>
 
-        )
-    }
+                </Card.Body>
+                </Card>    
+                  </Col>
 
+                <Col xs={8}> 
+                  {selecao == 'Clientes' && <VisualizarCliente dados={elementos}/> /*Renderização condicional*/} 
+                  {selecao == 'Remedios' && <VisualizarRemedio dados={elementos}/>}
+                  {selecao == 'Funcionarios' && <VisualizarFuncionario dados={elementos}/>}
+                  {selecao == 'Vendas' && <VisualizarVenda dados={elementos}/>}
 
+              </Col>
+    </Row>
+    </div>
+  </Container>
 
+  )
 }
 
 export default Visualizar;
