@@ -1,0 +1,30 @@
+.cadastro_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 8rem auto;
+    border-radius: 18px;
+    width: 30vw;
+    height: 48vh;
+    background-color: #28536B;
+    color: #FFF;
+}
+
+.select_route_div {
+  display: flex;
+  margin: 2rem auto;
+}
+.select_route {
+    margin-left: 1rem;
+    width: 8vw;
+}
+
+input {
+   float: right;
+   width: 60%;
+}
+
+p{
+    font-family: 'Krub';
+    font-size: 24px;
+}

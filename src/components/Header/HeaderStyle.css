@@ -1,0 +1,113 @@
+.header{
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: #396176;
+    padding: 15px;
+    color: #fff;
+    
+}
+
+.div-logo{
+    margin-left: 25%;
+    display: grid;
+    grid-template-columns: 80px 80px;
+}
+
+.logo{
+    height: 50px;
+    width: 50px;
+}
+
+a {
+    text-decoration: none;
+    
+}
+
+.logo_text {
+    display: grid;
+    align-items: center;
+    margin-top: 0.25rem;
+    justify-content: center;
+    font-family: 'Khula';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 32px;
+    color: white;
+}
+
+.lista {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    margin-right: 25%;
+}
+
+.lista-item{
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    margin-top: 3%;
+    margin-left: 15%;
+    margin-right: 15%;
+    font-family: 'Khula';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 26px;
+    color: white;
+}
+
+.lista-item:hover {  
+   background-color: #315264;
+   border: 1px solid #FFF;
+   border-radius: 10px;
+}
+
+
+@media screen and (max-width: 1250px){
+  
+    .lista {
+        display: grid;
+        grid-template-columns: auto auto;
+        margin-right: 25%;
+    }
+
+    
+}
+
+@media screen and (max-width: 760px){
+  
+    .lista {
+        display: grid;
+        width: 25vw;
+        grid-template-columns: auto;
+        margin: 0 auto;
+    }
+    .div-logo{
+        margin-left: 10vw;
+        margin-top: 4vh;
+        display: grid;
+        width: 3vw;
+        grid-template-columns: 80px 80px;
+    }
+    
+    .header {
+        grid-template-columns: 18vw auto;
+    }
+
+    a{
+        text-decoration: none;
+        color: white;
+        width: 18vw;
+        height: 8vh;
+    }
+
+    .logo_text{
+        display: none;
+    }
+
+    .nav {
+        width: 57vw;
+    }
+}
